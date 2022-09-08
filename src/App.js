@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Form from "./components/Form";
+import Header from "./components/Header";
+import axios from "axios";
+import TodoList from "./components/TodoList";
+import Login from "./components/Login";
 
 function App() {
+  const [input, setInput] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [editTodos, setEditTodos] = useState(null);
+  const [username, setUsername] = useState("");
+
+  const getData = async () => {
+    await axios
+      .get("https://63171b50cb0d40bc414c2aad.mockapi.io/todos")
+      .then((res) => setTodos(res.data));
+  };
+
+  useEffect(() => {
+    getData();
+  }, [todos]);
+
+  useEffect(() => {
+    setUsername(localStorage.getItem("user"))
+    
+  }, [setUsername,username])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="app-wrapper">
+{!username ?<Login username={username} setUsername={setUsername} />:<>
+<Header username={username} setUsername={setUsername}/>
+        <Form
+          input={input}
+          setInput={setInput}
+          todos={todos}
+          setTodos={setTodos}
+          editTodos={editTodos}
+          setEditTodos={setEditTodos}
+        />
+        <TodoList
+          todos={todos}
+          setTodos={setTodos}
+          setInput={setInput}
+          input={input}
+          editTodos={editTodos}
+          setEditTodos={setEditTodos}
+        /></>}
+
+        
+
+        
+      </div>
     </div>
   );
 }
