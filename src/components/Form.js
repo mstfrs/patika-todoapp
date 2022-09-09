@@ -9,6 +9,7 @@ const Form = ({
   setTodos,
   editTodos,
   setEditTodos,
+  getData,
 }) => {
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -45,13 +46,27 @@ const Form = ({
       setInput("");
     } else {
       todos.map((todo) => {
-        todo.id = editTodos.id ? axios.put(`https://63171b50cb0d40bc414c2aad.mockapi.io/todos/${todo.id}`,{content: input})
+        if (todo.id===editTodos.id) {
+          axios.put(`https://63171b50cb0d40bc414c2aad.mockapi.io/todos/${editTodos.id}`,{content: input})
               .then((data) => setTodos((todos) => [...todos, data]))
               .catch((err) => console.log(err))
-          : todo;
+          
+        } else {
+          return todo;
+          
+        }
+
+
+        // todo.id = editTodos.id ? axios.put(`https://63171b50cb0d40bc414c2aad.mockapi.io/todos/${todo.id}`,{content: input})
+        //       .then((data) => setTodos((todos) => [...todos, data]))
+        //       .catch((err) => console.log(err))
+        //   : todo;
+        getData()
           setEditTodos("")
+          
       });
     }
+    getData()
   };
 
   return (

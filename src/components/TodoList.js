@@ -8,12 +8,14 @@ const TodoList = ({
   setEditTodos,
   input,
   setInput,
+  getData,
 }) => {
   const handleDelete = async ({ id }) => {
     await axios
       .delete(`https://63171b50cb0d40bc414c2aad.mockapi.io/todos/${id}`)
       .then(setTodos(todos.filter((todo) => todo.id !== id)))
       .catch((err) => console.log(err));
+      getData()
   };
 
   const handleComplete = async (todo) => {
@@ -24,12 +26,14 @@ const TodoList = ({
         isCompleted: !todo.isCompleted,
       }
     );
+    getData()
   };
   const handleEdit = async ({ id }) => {
     const findTodo = todos.find((todo) => todo.id === id);
     setEditTodos(findTodo);
 
     setInput(findTodo.content);
+    getData()
   };
 
   return (

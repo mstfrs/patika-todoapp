@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  }, [todos]);
+  }, [setTodos]);
 
   useEffect(() => {
     setUsername(localStorage.getItem("user"))
@@ -40,6 +40,7 @@ function App() {
           setTodos={setTodos}
           editTodos={editTodos}
           setEditTodos={setEditTodos}
+          getData={getData}
         />
         <TodoList
           todos={todos}
@@ -48,6 +49,7 @@ function App() {
           input={input}
           editTodos={editTodos}
           setEditTodos={setEditTodos}
+          getData={getData}
         /></>}
 
         

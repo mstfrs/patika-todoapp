@@ -21,7 +21,7 @@
 .login-container{
   background: linear-gradient(to right bottom, #864d0f,#c89666);
   width: 100%;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
