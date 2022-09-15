@@ -78,6 +78,7 @@ const Form = ({
         name=""
         value={input}
         required
+        minLength={3}
         onChange={onInputChange}
       />
       <button type="submit" className="button-add">{editTodos?"OK":"Add"}      </button>
